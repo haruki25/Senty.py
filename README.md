@@ -1,11 +1,13 @@
 # Hate Speech Detection in Tweets
 This project is a classification task that aims to detect hate speech in tweets. The objective is to classify racist tweets from non-racist tweets based on their content. The project consists of the following steps:
 
-Data preprocessing: Cleaning and transforming the raw data into a format that can be used for training the machine learning model.
-Feature extraction: Creating a numerical representation of the tweets using a bag-of-words model.
-Training a machine learning model: Using the extracted features to train a classifier that can distinguish between racist and non-racist tweets.
-Evaluating the model: Measuring the accuracy, precision, recall, and F1-score of the trained model on a validation set.
-Testing the model: Applying the trained model to predict the labels of a test set.
+Steps  | Description
+------------- | -------------
+Data Preprocessing  | Cleaning and transforming the raw data into a format that can be used for training the machine learning model.
+Feature extraction  | Creating a numerical representation of the tweets using a bag-of-words model.
+Training a machine learning model | Using the extracted features to train a classifier that can distinguish between racist and non-racist tweets.
+Evaluating the model | Measuring the accuracy, precision, recall, and F1-score of the trained model on a validation set.
+Testing the model | Applying the trained model to predict the labels of a test set.
 
 ## Dataset
 The dataset used for this project is contained in the file tweets.csv. This dataset consists of tweets and their corresponding labels, where a label of 1 denotes a tweet that contains hate speech and a label of 0 denotes a non-hate-speech tweet. The dataset was split into a training set and a test set, with the test set containing 20% of the original data.
@@ -59,3 +61,7 @@ f1 = f1_score(val_labels, val_pred)
 cm = confusion_matrix(val_labels, val_pred)
 ```
 This code takes the trained classifier, the bag-of-words representation of the validation tweets, and their corresponding labels as input, and returns the calculated evaluation metrics.
+
+## License
+
+[MIT]

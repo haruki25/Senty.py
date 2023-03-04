@@ -64,4 +64,4 @@ This code takes the trained classifier, the bag-of-words representation of the v
 
 ## License
 
-[MIT]
+[MIT](https://github.com/haruki25/Sentiment_Analysis/blob/main/LICENSE)

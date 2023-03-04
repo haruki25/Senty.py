@@ -1,7 +1,7 @@
 # Hate Speech Detection in Tweets
 This project is a classification task that aims to detect hate speech in tweets. The objective is to classify racist tweets from non-racist tweets based on their content. The project consists of the following steps:
 
-## Data preprocessing: Cleaning and transforming the raw data into a format that can be used for training the machine learning model.
+Data preprocessing: Cleaning and transforming the raw data into a format that can be used for training the machine learning model.
 Feature extraction: Creating a numerical representation of the tweets using a bag-of-words model.
 Training a machine learning model: Using the extracted features to train a classifier that can distinguish between racist and non-racist tweets.
 Evaluating the model: Measuring the accuracy, precision, recall, and F1-score of the trained model on a validation set.

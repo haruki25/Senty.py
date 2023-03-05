@@ -62,6 +62,56 @@ cm = confusion_matrix(val_labels, val_pred)
 ```
 This code takes the trained classifier, the bag-of-words representation of the validation tweets, and their corresponding labels as input, and returns the calculated evaluation metrics.
 
+## Added Features
+1. Polarity Analyser
+```python
+def add_polarity_to_df(df):
+    polarity_list = []
+    for x in range(0, df.shape[0]):
+        QuantTextBlob = TextBlob(df.iloc[x][0])
+        measures = QuantTextBlob.sentiment.polarity
+        polarity_list.append(measures)
+    df['Text Polarity'] = polarity_list
+    return df
+polars= add_polarity_to_df(data)
+```
+This code defines a function ```python add_polarity_to_df() ``` that adds text polarity values to a DataFrame. The function takes a DataFrame as input and returns the modified DataFrame with an additional column named 'Text Polarity' that contains the polarity values for each row.
+The function iterates over each row of the input DataFrame, creates a TextBlob object from the text in the 'tweet' column, and gets the polarity measure using the sentiment.polarity attribute of the TextBlob object. It then appends the polarity measure to a list, and finally adds the list as a new column to the input DataFrame.
+
+2. Audio Transcribed Text Analyser
+```python
+r = sr.Recognizer()
+
+# open the audio file using AudioFile context manager
+with sr.AudioFile('sound.wav') as source:
+    # record audio from source file
+    audio = r.record(source)
+
+# transcribe the audio using Google Speech Recognition API
+try:
+    text = r.recognize_google(audio)
+    print("Google Speech Recognition thinks you said: " + text)
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio")
+except sr.RequestError as e:
+    print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
+# create a new CSV file for writing
+with open('output_file.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+
+    # write the header row name
+    writer.writerow(['text'])
+    
+    # split the text into words
+    words = text.split()
+    while words:
+        # join 10 words into a single row & make multiple rows for better application of model
+        row = ' '.join(words[:10])
+        writer.writerow([row])
+        words = words[10:]
+```
+This code uses the speech_recognition library to transcribe an audio file into text using Google's Speech Recognition API. It then writes the transcribed text to a new CSV file called output_file.csv, with each row containing a maximum of 10 words.
 ## License
 
 [MIT](https://github.com/haruki25/Sentiment_Analysis/blob/main/LICENSE)

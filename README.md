@@ -1,117 +1,77 @@
-# Hate Speech Detection in Tweets
-This project is a classification task that aims to detect hate speech in tweets. The objective is to classify racist tweets from non-racist tweets based on their content. The project consists of the following steps:
+# Senty.py: Sentiment Analysis Tool
 
-Steps  | Description
-------------- | -------------
-Data Preprocessing  | Cleaning and transforming the raw data into a format that can be used for training the machine learning model.
-Feature extraction  | Creating a numerical representation of the tweets using a bag-of-words model.
-Training a machine learning model | Using the extracted features to train a classifier that can distinguish between racist and non-racist tweets.
-Evaluating the model | Measuring the accuracy, precision, recall, and F1-score of the trained model on a validation set.
-Testing the model | Applying the trained model to predict the labels of a test set.
+Senty.py is a comprehensive sentiment analysis application built with Python, leveraging Streamlit for an interactive web interface. It uses a pre-trained Logistic Regression model for sentiment prediction, NRCLex for emotion analysis, and provides functionalities for text, batch, and audio analysis.
 
-## Dataset
-The dataset used for this project is contained in the file tweets.csv. This dataset consists of tweets and their corresponding labels, where a label of 1 denotes a tweet that contains hate speech and a label of 0 denotes a non-hate-speech tweet. The dataset was split into a training set and a test set, with the test set containing 20% of the original data.
+## Features
 
-## Dependencies
-The following Python libraries are required to run this project:
-```python
-pandas
-nltk
-scikit-learn
-```
-You can install these libraries using pip:
+- **Text Analysis**: Analyze the sentiment of a single text input.
+- **Batch Analysis**: Process and analyze sentiment for multiple texts in a CSV file.
+- **Audio Analysis**: Transcribe and analyze sentiment from an audio file.
+- **Sentiment Gauge**: Visual representation of sentiment polarity.
+- **Emotion Distribution**: Charts showing the intensity of different emotions in the text.
+- **Word Clouds**: Generate word clouds for different sentiment categories.
+- **Model Information**: Insights into the model's performance, including a confusion matrix and class distribution.
+
+## Installation
+
+To run Senty.py locally, you need Python 3.6 or later. Clone the repository and install the required dependencies.
+
 ```bash
-pip install pandas nltk scikit-learn
+git clone https://github.com/haruki25/Sentiment_Analysis.git
+cd Sentiment_Analysis
+pip install -r requirements.txt
 ```
-## Steps
-Step 1: Data Preprocessing
-The first step in this project is to preprocess the raw data. The preprocessing steps include:
-Removing stop words and tokenizing the tweets using NLTK.
-```python
-stop_words = nltk.corpus.stopwords.words('english')
-tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+')
+
+### Dependencies
+
+- Streamlit
+- Pandas
+- NLTK
+- Scikit-learn
+- Plotly
+- Matplotlib
+- Seaborn
+- WordCloud
+- NRCLex
+
+## Usage
+
+After installing the dependencies, you can start the Streamlit application by running:
+
+```bash
+streamlit run App.py
 ```
-This cell takes a raw tweet as input and returns a cleaned and tokenized version of the tweet.
 
-Step 2: Feature Extraction
-The next step is to create a numerical representation of the tweets using a bag-of-words model. This model counts the frequency of each word in the tweets and creates a sparse matrix of the counts. The CountVectorizer class from scikit-learn is used to create the bag-of-words representation of the tweets.
-```python
-vectorizer = CountVectorizer(lowercase=True, stop_words=stop_words, tokenizer=tokenizer.tokenize)
-train_features = vectorizer.fit_transform(train_data)
-val_features = vectorizer.transform(val_data)
-```
-This code takes a list of preprocessed tweets and returns a sparse matrix of the bag-of-words representation of the tweets.
+Navigate to `http://localhost:8501` in your web browser to interact with the application.
 
-Step 3: Training a Machine Learning Model
-The third step is to train a machine learning model on the extracted features. In this project, we use the Naive Bayes classifier from scikit-learn to classify the tweets. The classifier is trained on the training set using the bag-of-words representation of the tweets.
-```python
-clf = MultinomialNB()
-clf.fit(train_features, train_labels)
-```
-This code takes the bag-of-words representation of the training tweets and their corresponding labels as input, and returns the trained classifier.
+## Structure
 
-Step 4: Evaluating the Model
-The fourth step is to evaluate the performance of the trained model on a validation set. The evaluation metrics used in this project are accuracy, precision, recall, and F1-score. These metrics are calculated using scikit-learn's metrics module.
-```python
-val_pred = clf.predict(val_features)
-accuracy = accuracy_score(val_labels, val_pred)
-precision = precision_score(val_labels, val_pred)
-recall = recall_score(val_labels, val_pred)
-f1 = f1_score(val_labels, val_pred)
-cm = confusion_matrix(val_labels, val_pred)
-```
-This code takes the trained classifier, the bag-of-words representation of the validation tweets, and their corresponding labels as input, and returns the calculated evaluation metrics.
+- `App.py`: The main Streamlit application file. (Homepage)
+- `utils/`: Contains utility scripts for sentiment analysis, batch processing, and model training.
+  - `batch_processing.py`: Functions for processing batches of text for sentiment analysis.
+  - `train_model.py`: Scripts for training the sentiment analysis model.
+  - `utils.py`: Various utility functions including sentiment gauge creation, word cloud generation, and more.
+- `model_info.py`: Streamlit application for displaying model information and performance metrics.
+- `datasets/`: Directory for storing training datasets (included in the repository).
 
-## Added Features
-1. Polarity Analyser
-```python
-def add_polarity_to_df(df):
-    polarity_list = []
-    for x in range(0, df.shape[0]):
-        QuantTextBlob = TextBlob(df.iloc[x][0])
-        measures = QuantTextBlob.sentiment.polarity
-        polarity_list.append(measures)
-    df['Text Polarity'] = polarity_list
-    return df
-polars= add_polarity_to_df(data)
-```
-This code defines a function ```python add_polarity_to_df() ``` that adds text polarity values to a DataFrame. The function takes a DataFrame as input and returns the modified DataFrame with an additional column named 'Text Polarity' that contains the polarity values for each row.
-The function iterates over each row of the input DataFrame, creates a TextBlob object from the text in the 'tweet' column, and gets the polarity measure using the sentiment.polarity attribute of the TextBlob object. It then appends the polarity measure to a list, and finally adds the list as a new column to the input DataFrame.
+## Contributing
 
-2. Audio Transcribed Text Analyser
-```python
-r = sr.Recognizer()
+Contributions to Senty.py are welcome! Please follow these steps to contribute:
 
-# open the audio file using AudioFile context manager
-with sr.AudioFile('sound.wav') as source:
-    # record audio from source file
-    audio = r.record(source)
+1. Fork the repository.
+2. Create a new branch for your feature (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
 
-# transcribe the audio using Google Speech Recognition API
-try:
-    text = r.recognize_google(audio)
-    print("Google Speech Recognition thinks you said: " + text)
-except sr.UnknownValueError:
-    print("Google Speech Recognition could not understand audio")
-except sr.RequestError as e:
-    print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-# create a new CSV file for writing
-with open('output_file.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-
-    # write the header row name
-    writer.writerow(['text'])
-    
-    # split the text into words
-    words = text.split()
-    while words:
-        # join 10 words into a single row & make multiple rows for better application of model
-        row = ' '.join(words[:10])
-        writer.writerow([row])
-        words = words[10:]
-```
-This code uses the speech_recognition library to transcribe an audio file into text using Google's Speech Recognition API. It then writes the transcribed text to a new CSV file called output_file.csv, with each row containing a maximum of 10 words.
 ## License
 
-[MIT](https://github.com/haruki25/Sentiment_Analysis/blob/main/LICENSE)
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Acknowledgments
+
+- NLTK for natural language processing tools.
+- Scikit-learn for machine learning algorithms.
+- Streamlit for creating an interactive web application.
+
+Thank you for exploring Senty.py. Happy sentiment analyzing!

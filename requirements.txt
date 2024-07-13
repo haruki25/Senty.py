@@ -3,7 +3,6 @@ pandas
 nltk
 numpy
 xgboost
-re
 scikit-learn
 textblob
 SpeechRecognition

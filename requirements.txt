@@ -8,3 +8,4 @@ joblib
 seaborn
 matplotlib
 plotly
+nrclex

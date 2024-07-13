@@ -13,8 +13,8 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 
 # Download NLTK data
-nltk.download("punkt")
-nltk.download("stopwords")
+# nltk.download("punkt")
+# nltk.download("stopwords")
 
 
 def preprocess_text(text):

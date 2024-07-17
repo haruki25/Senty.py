@@ -1,6 +1,7 @@
 <p align="center">
   <img src="./assets/name.png" />
 </p>
+
 # Senty.py: Sentiment Analysis Tool
 
 Senty.py is a comprehensive sentiment analysis application built with Python, leveraging Streamlit for an interactive web interface. It uses a pre-trained Logistic Regression model for sentiment prediction, NRCLex for emotion analysis, and provides functionalities for text, batch, and audio analysis.
